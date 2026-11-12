@@ -382,7 +382,7 @@ calibrated model of the city.</strong></p>
 </section>
 <section id="the-morning">
 <h2>The morning<a class="headerlink" href="#the-morning" title="Link to this heading">¶</a></h2>
-<p><code class="docutils literal notranslate"><span class="pre">agmsim</span> <span class="pre">run</span> <span class="pre">montreal</span></code> simulates a weekday from 07:00 to 09:00 with everything the simulator has:</p>
+<p><code class="docutils literal notranslate"><span class="pre">agmsim</span> <span class="pre">run</span> <span class="pre">montreal</span></code> simulates a weekday from 06:00 to 12:00 with everything the simulator has:</p>
 <div class="table-wrapper colwidths-auto docutils container">
 <table class="docutils align-default">
 <thead>
@@ -392,7 +392,7 @@ calibrated model of the city.</strong></p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Travellers</p></td>
-<td><p>600, living where people live (weights by district), 65% with a car</p></td>
+<td><p>900, living where people live (weights by district), 65% with a car; most set out around 08:00</p></td>
 </tr>
 <tr class="row-odd"><td><p>Places</p></td>
 <td><p>21 named destinations: downtown offices, the Technoparc, YUL airport, McGill, UdeM, UQAM, three hospitals, markets and malls, the Bell Centre, the Olympic Park</p></td>
@@ -421,8 +421,8 @@ calibrated model of the city.</strong></p>
 </tbody>
 </table>
 </div>
-<p>With these settings and seed 1 every trip is completed, the mean trip takes 16 minutes, 61% of trips are made
-by car, 22% by transit and 17% by on-demand car; a run takes about three seconds.</p>
+<p>With these settings and seed 1 every trip is completed, the mean trip takes 15 minutes, 63% of trips are made
+by car, 19% by transit and 18% by on-demand car; a run with the built-in decision models takes about 15 seconds.</p>
 </section>
 <section id="changing-a-condition">
 <h2>Changing a condition<a class="headerlink" href="#changing-a-condition" title="Link to this heading">¶</a></h2>
@@ -430,7 +430,7 @@ by car, 22% by transit and 17% by on-demand car; a run takes about three seconds
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>agmsim<span class="w"> </span>run<span class="w"> </span>montreal<span class="w"> </span>--set<span class="w"> </span>agents.vehicle.agency<span class="o">=</span>L0<span class="w">          </span><span class="c1"># cars that follow their first route</span>
 agmsim<span class="w"> </span>run<span class="w"> </span>montreal<span class="w"> </span>--set<span class="w"> </span>agents.operator.initial_toll<span class="o">=</span><span class="m">2</span><span class="w">    </span><span class="c1"># a charge of 2 USD to enter the centre</span>
 agmsim<span class="w"> </span>run<span class="w"> </span>montreal<span class="w"> </span>--set<span class="w"> </span><span class="nv">events</span><span class="o">=[]</span><span class="w">                         </span><span class="c1"># the same morning without the crash</span>
-agmsim<span class="w"> </span>run<span class="w"> </span>montreal<span class="w"> </span>--set<span class="w"> </span>agents.traveler.count<span class="o">=</span><span class="m">900</span><span class="w">         </span><span class="c1"># more people</span>
+agmsim<span class="w"> </span>run<span class="w"> </span>montreal<span class="w"> </span>--set<span class="w"> </span>agents.traveler.count<span class="o">=</span><span class="m">1500</span><span class="w">        </span><span class="c1"># more people</span>
 </pre></div>
 </div>
 <p>Every setting is described in <a class="reference internal" href="configuration.html"><span class="std std-doc">Configuration</span></a>.</p>
