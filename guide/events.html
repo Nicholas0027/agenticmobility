@@ -295,7 +295,7 @@ place can have opening hours.</p>
 <td><p>slows or blocks roads (<code class="docutils literal notranslate"><span class="pre">links</span></code> are pairs of node ids, <code class="docutils literal notranslate"><span class="pre">factor</span></code> the share of normal speed). Who knows about it depends on the cars’ and the orchestrator’s agency</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">weather</span></code></p></td>
-<td><p>slows every road and walking, and tells every agent so in its observation</p></td>
+<td><p>slows every road (<code class="docutils literal notranslate"><span class="pre">speed_factor</span></code>) and walking (<code class="docutils literal notranslate"><span class="pre">walk_factor</span></code>), makes waiting and walking count for more in the built-in choice model (<code class="docutils literal notranslate"><span class="pre">discomfort</span></code>), and tells every agent so in its observation, under the <code class="docutils literal notranslate"><span class="pre">label</span></code> given. Any value above 0</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">demand_surge</span></code></p></td>
 <td><p>adds trips that all start from, or head to, one place within a period</p></td>
@@ -310,8 +310,9 @@ place can have opening hours.</p>
 </table>
 </div>
 <p>Times are seconds after the start of the run (06:00). The testbed has one event, the crash on the Decarie
-expressway at 07:30. On the page, <strong>Events</strong> switches it off and sets the weather to rain or snow; anything else
-is added with <code class="docutils literal notranslate"><span class="pre">--set</span> <span class="pre">events=[...]</span></code> or in a copy of the scenario.</p>
+expressway at 07:30. On the page, <strong>Events</strong> switches it off and sets the weather: three sliders for the
+numbers above, the period, and the word the agents are told (rain and snow are shortcuts). Anything else is
+added with <code class="docutils literal notranslate"><span class="pre">--set</span> <span class="pre">events=[...]</span></code> or in a copy of the scenario.</p>
 </section>
 </section>
 

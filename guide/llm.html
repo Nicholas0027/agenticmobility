@@ -313,6 +313,49 @@ choice formatted as model output so that the whole path can be exercised.</p></l
 by git and a key is never written to a configuration, trace or log. <code class="docutils literal notranslate"><span class="pre">llm.max_calls</span></code> and <code class="docutils literal notranslate"><span class="pre">llm.budget_usd</span></code> cap
 spending.</p>
 </section>
+<section id="what-the-model-is-told">
+<h2>What the model is told<a class="headerlink" href="#what-the-model-is-told" title="Link to this heading">¶</a></h2>
+<p>Before every decision the model gets a prompt that the simulator writes from what the kind declares about
+itself: who the agent is, why it may be asked, what each action means, and the answer format. It is followed
+by what the agent sees at that moment, which includes its <strong>goal</strong>: a sentence under <code class="docutils literal notranslate"><span class="pre">objective</span></code> in its state.
+Both can be read and changed, per kind.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>.venv/bin/agmsim<span class="w"> </span>prompt<span class="w"> </span>montreal<span class="w"> </span>vehicle<span class="w">      </span><span class="c1"># the goal and the prompt of the private cars</span>
+</pre></div>
+</div>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">agents</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">vehicle</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">objective</span><span class="p">:</span><span class="w"> </span><span class="s">"Get</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">owner</span><span class="nv"> </span><span class="s">there</span><span class="nv"> </span><span class="s">without</span><span class="nv"> </span><span class="s">using</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">bridge</span><span class="nv"> </span><span class="s">unless</span><span class="nv"> </span><span class="s">it</span><span class="nv"> </span><span class="s">saves</span><span class="nv"> </span><span class="s">ten</span><span class="nv"> </span><span class="s">minutes."</span>
+<span class="w">    </span><span class="nt">llm_policy_params</span><span class="p">:</span>
+<span class="w">      </span><span class="nt">extra_instructions</span><span class="p">:</span><span class="w"> </span><span class="s">"Say</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">your</span><span class="nv"> </span><span class="s">reason</span><span class="nv"> </span><span class="s">which</span><span class="nv"> </span><span class="s">road</span><span class="nv"> </span><span class="s">you</span><span class="nv"> </span><span class="s">avoided."</span><span class="w">   </span><span class="c1"># added at the end of the prompt</span>
+<span class="w">      </span><span class="c1"># system_prompt: "..."        # your own prompt in place of the simulator's</span>
+</pre></div>
+</div>
+<div class="table-wrapper colwidths-auto docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Setting</p></th>
+<th class="head"><p>What it changes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">objective</span></code></p></td>
+<td><p>what the agents of the kind are told to pursue, in place of the kind’s own goal. Travellers have none of their own: they are told who they are and decide as that person would. For on-demand cars the words <code class="docutils literal notranslate"><span class="pre">profit</span></code>, <code class="docutils literal notranslate"><span class="pre">service</span></code> and <code class="docutils literal notranslate"><span class="pre">balanced</span></code> stand for three ready-made goals</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">llm_policy_params.extra_instructions</span></code></p></td>
+<td><p>text added at the end of the prompt</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">llm_policy_params.system_prompt</span></code></p></td>
+<td><p>your own prompt in place of the simulator’s. Keep its part on the answer format: a reply that cannot be read is asked for once more and then left to the built-in model</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The built-in models follow their own rules and read neither (the on-demand cars’ built-in model follows the
+three ready-made goals). On the page, a kind decided by a language model has a link <strong>goal and prompt</strong>: it
+shows the prompt as it will be sent and lets you edit all three. The Guide shows the goal and the prompt of
+every kind, and a selected decision shows the text the model was sent for it, word for word. In Python,
+<code class="docutils literal notranslate"><span class="pre">agmsim.prompts.told(&quot;montreal&quot;)</span></code> returns the goal and the prompt of every kind.</p>
+</section>
 <section id="what-the-model-is-asked-for">
 <h2>What the model is asked for<a class="headerlink" href="#what-the-model-is-asked-for" title="Link to this heading">¶</a></h2>
 <p>The answer format is set per kind with <code class="docutils literal notranslate"><span class="pre">llm_policy_params:</span> <span class="pre">{rationale:</span> <span class="pre">...}</span></code>:</p>
@@ -434,6 +477,7 @@ labelled with the action that serves the person concerned.</p>
 <li><a class="reference internal" href="#">Language models</a><ul>
 <li><a class="reference internal" href="#backends-and-presets">Backends and presets</a></li>
 <li><a class="reference internal" href="#keys">Keys</a></li>
+<li><a class="reference internal" href="#what-the-model-is-told">What the model is told</a></li>
 <li><a class="reference internal" href="#what-the-model-is-asked-for">What the model is asked for</a></li>
 <li><a class="reference internal" href="#faster-runs">Faster runs</a></li>
 <li><a class="reference internal" href="#a-decision-benchmark">A decision benchmark</a></li>
